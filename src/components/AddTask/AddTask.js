@@ -69,7 +69,7 @@ const AddTask = ( props ) => {
         if(taskTitle !== ''){
             const newTask = {
                 title: taskTitle,
-                date: now,
+                date: now.toLocaleString(),
                 isChecked: false
             }
             addTask(newTask)

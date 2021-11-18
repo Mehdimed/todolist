@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -34,7 +35,9 @@ const Navbar = () => {
 
     return(
         <NavbarContainer id="navbar">
-            <LogoNavbar/>
+            <Link to="/"><LogoNavbar/></Link>
+            <Link to="/login">Se connecter</Link>
+            <Link to="/logout">Se déconnecter</Link>
             <AvatarUser>T</AvatarUser>
         </NavbarContainer>
     )

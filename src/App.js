@@ -1,9 +1,12 @@
-import { useState } from 'react';
 import styled from 'styled-components';
-import AddTask from './components/AddTask/AddTask';
-import Layout from './components/Layout/Layout';
-import TopTime from './components/TopTime/TopTime'
-import TasksList from './components/TasksList/TasksList'
+import { useState } from 'react'
+import { Routes, Route } from "react-router-dom";
+import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
+import Inscription from './components/Inscription/Inscription';
+import Home from './components/Home/Home';
+
+
 
 const Container = styled.div`
   display: flex;
@@ -12,39 +15,21 @@ const Container = styled.div`
 
 const App = () => {
 
+  const [isConnected, setIsConnected] = useState(false)
   const [tasks, setTasks] = useState([])
-
-  const addTask = (task) => {
-    const newTasks = [...tasks,task]
-    setTasks(newTasks)
-  }
-
-  const deleteTask = (task) => {
-    let tasksCopy = [...tasks]
-    const taskToDeleteIndex = tasks.findIndex(t => t === task)
-    tasksCopy.splice(taskToDeleteIndex, 1);
-    setTasks(tasksCopy)
-
-  }
 
   const updateTasks = tasks => {
     setTasks(tasks)
   }
 
-  const checkTask = (task) => {
-    let tasksCopy = [...tasks]
-    const taskToCheckIndex = tasks.findIndex(t => t === task)
-    tasksCopy[taskToCheckIndex].isChecked = !tasksCopy[taskToCheckIndex].isChecked;
-    setTasks(tasksCopy)
-  }
-
   return (
     <Container>
-      <Layout>
-        <TopTime/>
-        <AddTask addTask={addTask}/>
-        <TasksList tasks={tasks} deleteTask={deleteTask} updateTasks={updateTasks} checkTask={checkTask}/>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<Home tasks={tasks} setTasks={setTasks} updateTasks={updateTasks} />} />
+        <Route path="/login" element={<Login isConnected={isConnected} setIsConnected={setIsConnected} />} />
+        <Route path="/inscription" element={<Inscription />} />
+        <Route path="/logout" element={<Logout isConnected={isConnected} setIsConnected={setIsConnected} updateTasks={updateTasks}/>} />
+      </Routes>
     </Container>
   );
 }

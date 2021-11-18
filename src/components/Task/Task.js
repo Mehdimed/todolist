@@ -54,8 +54,11 @@ const Column = styled.div`
 const Task = ({ id,task,deleteTask,checkTask }) => {
     const t = task || {};
     const title = task.title || 'titre par defaut';
-    const date = task.date.toLocaleDateString([], { day: 'numeric', month: 'numeric' }) || 'date par defaut';
-    const time = task.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) || 'heure par defaut';
+
+    const splitDate = task.date.split(',');
+    const date = splitDate[0].substring(0,5) || 'date par defaut';
+    const time = splitDate[1].substring(0,6) || 'heure par defaut';
+    
     const isChecked = task.isChecked || false
 
     return(
